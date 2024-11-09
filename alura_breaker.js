@@ -36,14 +36,14 @@ function createFloatingMenu() {
 
     // Botão para abrir/fechar o menu
     const toggleButton = document.createElement('button');
-    toggleButton.textContent = '⬆️';
+    toggleButton.textContent = 'Khan Breaker';
     toggleButton.style.backgroundColor = 'black';
     toggleButton.style.color = 'white';
     toggleButton.style.border = 'none';
     toggleButton.style.cursor = 'pointer';
     toggleButton.addEventListener('click', () => {
         menuContent.style.display = menuContent.style.display === 'none' ? 'block' : 'none';
-        toggleButton.textContent = menuContent.style.display === 'none' ? '⬇️' : '⬆️';
+        toggleButton.textContent = menuContent.style.display === 'none' ? 'Khan Breaker' : '⬆️';
     });
     menu.appendChild(toggleButton);
 
@@ -55,6 +55,18 @@ function createFloatingMenu() {
     const title = document.createElement('h3');
     title.textContent = 'Alura Breaker';
     menuContent.appendChild(title);
+
+    // Checkbox para ativar/desativar o script
+    const checkboxLabel = document.createElement('label');
+    checkboxLabel.style.display = 'block';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'keepRunningCheckbox';
+    checkbox.checked = true;  // Define o script como ativo por padrão
+    checkbox.style.accentColor = 'red';
+    checkboxLabel.appendChild(checkbox);
+    checkboxLabel.appendChild(document.createTextNode(' Script Ativo'));
+    menuContent.appendChild(checkboxLabel);
 
     // Barra para ajustar o delay
     const delayLabel = document.createElement('label');
@@ -86,6 +98,8 @@ function createFloatingMenu() {
 
     // Função para executar o script automaticamente
     const runScript = () => {
+        if (!checkbox.checked) return;  // Só executa se a checkbox estiver marcada
+
         const water_mark = document.querySelector('.formattedText');
         if (water_mark) {
             water_mark.innerHTML = 'sussy baka amongus';
@@ -125,13 +139,14 @@ function createFloatingMenu() {
             const delayTime = parseInt(delaySlider.value) * 1000;
             setTimeout(() => {
                 next_lesson_button.click();
+                runScript();  // Reexecuta o script após clicar na próxima lição
             }, delayTime);
         } else {
             alert("Next Lesson Button not found :( are u sure that u are on the correct page?");
         }
     };
 
-    // Executa o script automaticamente a cada carga de página
+    // Executa o script automaticamente em cada carregamento de página
     runScript();
 }
 
